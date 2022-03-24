@@ -41,5 +41,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Note> notes;
 
-
+    /**
+     * 分类与用户的多对一映射
+     */
+    @ManyToOne
+    @JoinColumn(name="uid")
+    private User user;
 }

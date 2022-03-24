@@ -4,7 +4,16 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
+/**
+ * @ClassName User
+ * @Description 用户
+ * @Author honghaitao
+ * @Updater
+ * @Create 2022-03-24
+ * @Update
+ **/
 @Getter
 @Setter
 @Builder
@@ -36,6 +45,12 @@ public class User {
     /**
      * 用户token
      */
-    @Column String token;
+    @Column
+    private String token;
 
+    /**
+     *用户与分类的一对多映射
+     */
+    @OneToMany(mappedBy = "user")
+    private List<Category> categories;
 }
