@@ -40,13 +40,13 @@ public class User {
      * 用户账号
      */
     @Column
-    private String account;
+    private String userName;
 
     /**
-     * 用户token
+     * 用户密码
      */
     @Column
-    private String token;
+    private String password;
 
     /**
      *用户与分类的一对多映射

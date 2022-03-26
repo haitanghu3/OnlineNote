@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Update
  **/
 public interface UserDao extends JpaRepository<User, String> {
-
+    User findByUserName(String userName);
 }
