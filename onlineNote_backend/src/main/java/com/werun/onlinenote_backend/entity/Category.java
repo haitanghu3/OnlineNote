@@ -9,9 +9,9 @@ import java.util.List;
  * @ClassName Category
  * @Description 分类
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-24
- * @Update
+ * @Update 2022-03-26
  **/
 @Getter
 @Setter
@@ -22,7 +22,7 @@ import java.util.List;
 @Table(name = "category")
 public class Category {
     /**
-     *  id，使用uuid
+     * id，使用uuid
      */
     @Id
     @GeneratedValue(generator = "jpa_uuid")
@@ -30,21 +30,21 @@ public class Category {
     private String cid;
 
     /**
-     * 种类的名字
+     * 分类的名字
      */
     @Column
-    private String cname;
+    private String categoryName;
 
     /**
-     *分类与笔记的一对多映射
+     * 分类与笔记的一对多映射
      */
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "noteCategory")
     private List<Note> notes;
 
     /**
      * 分类与用户的多对一映射
      */
     @ManyToOne
-    @JoinColumn(name="uid")
+    @JoinColumn(name = "uid")
     private User user;
 }

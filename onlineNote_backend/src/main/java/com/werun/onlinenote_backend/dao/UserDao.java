@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @ClassName UserDao
  * @Description UserDao
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-24
- * @Update
+ * @Update 2022-03-26
  **/
 public interface UserDao extends JpaRepository<User, String> {
-    User findByUserName(String userName);
+    User findByUserAccount(String userAccount);
 }
