@@ -10,9 +10,9 @@ import java.util.List;
  * @ClassName User
  * @Description 用户
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-24
- * @Update
+ * @Update 2022-03-26
  **/
 @Getter
 @Setter
@@ -31,26 +31,27 @@ public class User {
     private String uid;
 
     /**
-     * 用户姓名
-     */
-    @Column
-    private String name;
-
-    /**
-     * 用户账号
+     * 用户昵称
      */
     @Column
     private String userName;
 
     /**
+     * 用户账号
+     */
+    @Column
+    private String userAccount;
+
+    /**
      * 用户密码
      */
     @Column
-    private String password;
+    private String userPassword;
 
     /**
      *用户与分类的一对多映射
      */
     @OneToMany(mappedBy = "user")
     private List<Category> categories;
+
 }

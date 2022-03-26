@@ -44,13 +44,13 @@ public class UserRealm extends AuthorizingRealm {
 
         //查询当前用户是否存在
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
-        User user = userDao.findByUserName(userToken.getUsername());
+        User user = userDao.findByUserAccount(userToken.getUsername());
 
-        if (user==null){
+        if (user == null){
             return null;//报错：该用户不存在
         }
 
         //密码认证
-        return new SimpleAuthenticationInfo(user,user.getPassword(),getName());
+        return new SimpleAuthenticationInfo(user, user.getUserPassword(), getName());
     }
 }

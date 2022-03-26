@@ -9,9 +9,9 @@ import java.sql.Timestamp;
  * @ClassName Note
  * @Description 笔记
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-24
- * @Update
+ * @Update 2022-03-26
  **/
 @Getter
 @Setter
@@ -34,31 +34,30 @@ public class Note {
      * 笔记标题
      */
     @Column
-    private String title;
+    private String noteTitle;
 
     /**
      * 笔记与分类的多对一映射
      */
     @ManyToOne
-    @JoinColumn(name="cid")
-    private Category category;
+    @JoinColumn(name = "cid")
+    private Category noteCategory;
 
     /**
      *创建时间
      */
     @Column
-    private Timestamp createTime;
+    private Timestamp noteCreateTime;
 
     /**
      * 状态(一开始默认为未完成的'false'状态)
      */
     @Column
-    private boolean state = false;
-
+    private Boolean noteCompletedState = false;
 
     /**
      * 内容（仅文本）
      */
     @Column
-    private String content;
+    private String noteContent;
 }
