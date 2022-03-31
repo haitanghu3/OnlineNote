@@ -1,6 +1,9 @@
 package com.werun.onlinenote_backend.dao;
 import com.werun.onlinenote_backend.entity.Category;
+import com.werun.onlinenote_backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * @ClassName CategoryDao
@@ -8,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Author honghaitao
  * @Updater
  * @Create 2022-03-24
- * @Update
+ * @Update 2022-03-31
  **/
 public interface CategoryDao extends JpaRepository<Category, String>{
 }

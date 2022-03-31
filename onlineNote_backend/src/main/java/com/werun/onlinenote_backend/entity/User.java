@@ -12,7 +12,7 @@ import java.util.List;
  * @Author honghaitao
  * @Updater liuzijun
  * @Create 2022-03-24
- * @Update 2022-03-26
+ * @Update 2022-03-31
  **/
 @Getter
 @Setter
@@ -51,7 +51,7 @@ public class User {
     /**
      *用户与分类的一对多映射
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Category> categories;
 
 }

@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @ClassName IndexController
+ * @Description 登录、注册操作的控制器
+ * @Author honghaitao
+ * @Updater
+ * @Create 2022-03-31
+ * @Update
+ **/
 @Controller
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class IndexController {
@@ -19,10 +27,18 @@ public class IndexController {
 
     @ResponseBody
     @PostMapping(ConstUtil.LOGIN)
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
+    public String login(@RequestParam("userAccount") String userAccount,
+                        @RequestParam("userPassword") String userPassword,
                         Model model){
-        indexService.login(username, password,model);
-        return "login";
+        return indexService.login(userAccount, userPassword,model);
     }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.REGISTER)
+    public String register(@RequestParam("userName") String userName,
+                           @RequestParam("userAccount") String userAccount,
+                        @RequestParam("userPassword") String userPassword){
+        return indexService.register(userName,userAccount,userPassword);
+    }
+
 }

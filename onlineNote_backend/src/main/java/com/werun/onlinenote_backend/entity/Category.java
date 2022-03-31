@@ -11,7 +11,7 @@ import java.util.List;
  * @Author honghaitao
  * @Updater liuzijun
  * @Create 2022-03-24
- * @Update 2022-03-26
+ * @Update 2022-03-31
  **/
 @Getter
 @Setter
@@ -38,7 +38,7 @@ public class Category {
     /**
      * 分类与笔记的一对多映射
      */
-    @OneToMany(mappedBy = "noteCategory")
+    @OneToMany(mappedBy = "noteCategory",fetch = FetchType.EAGER)
     private List<Note> notes;
 
     /**
