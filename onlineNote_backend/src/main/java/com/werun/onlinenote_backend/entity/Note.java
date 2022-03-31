@@ -60,4 +60,10 @@ public class Note {
      */
     @Column
     private String noteContent;
+
+    /**
+     * 用户id
+     */
+    @Column
+    private String uid;
 }

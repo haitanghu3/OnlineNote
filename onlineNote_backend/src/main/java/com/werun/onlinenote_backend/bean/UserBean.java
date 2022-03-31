@@ -1,5 +1,6 @@
 package com.werun.onlinenote_backend.bean;
 
+import com.werun.onlinenote_backend.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,9 @@ import lombok.NoArgsConstructor;
  * @ClassName UserBean
  * @Description User类封装
  * @Author liuzijun
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-26
- * @Update
+ * @Update 2022-03-31
  **/
 @Data
 @NoArgsConstructor
@@ -21,5 +22,12 @@ public class UserBean {
     private String userName;
 
     private String userAccount;
+
+    public UserBean(User user)
+    {
+        this.uid = user.getUid();
+        this.userName = user.getUserName();
+        this.userAccount = user.getUserAccount();
+    }
 
 }
