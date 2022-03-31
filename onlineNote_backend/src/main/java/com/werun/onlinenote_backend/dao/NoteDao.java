@@ -1,4 +1,5 @@
 package com.werun.onlinenote_backend.dao;
+import com.werun.onlinenote_backend.entity.Category;
 import com.werun.onlinenote_backend.entity.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,5 +11,6 @@ import org.springframework.data.jpa.repository.Query;
  * @Create 2022-03-24
  * @Update
  **/
-public interface NoteDao extends JpaRepository<Note, String>{
+public interface NoteDao extends JpaRepository<Note, String> {
+    Note findNoteByNoteTitleAndNoteCategory(String noteTitle, Category category);
 }

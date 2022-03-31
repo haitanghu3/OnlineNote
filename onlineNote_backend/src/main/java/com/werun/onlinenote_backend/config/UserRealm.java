@@ -19,16 +19,16 @@ import java.util.Set;
  * @ClassName UserRealm
  * @Description UserRealm
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-26
- * @Update
+ * @Update 2022-03-31
  **/
 public class UserRealm extends AuthorizingRealm {
     @Autowired
     UserDao userDao;
 
     /**
-     * 授权：提供用户信息返回权限信息(这个好像这次用不太到？)
+     * 授权：提供用户信息返回权限信息
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -41,13 +41,13 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-
         //查询当前用户是否存在
-        UsernamePasswordToken userToken = (UsernamePasswordToken) token;
-        User user = userDao.findByUserAccount(userToken.getUsername());
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        User user = userDao.findByUserAccount(usernamePasswordToken.getUsername());
 
-        if (user == null){
-            return null;//报错：该用户不存在
+        if (user == null) {
+            //报错：该用户不存在
+            return null;
         }
 
         //密码认证

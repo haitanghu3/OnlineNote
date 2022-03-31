@@ -3,9 +3,7 @@ package com.werun.onlinenote_backend.result;
 import com.werun.onlinenote_backend.bean.CategoryBean;
 import com.werun.onlinenote_backend.bean.NoteBean;
 import com.werun.onlinenote_backend.bean.UserBean;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,10 +11,12 @@ import java.util.List;
  * @ClassName CategoryResult
  * @Description Category类结果封装
  * @Author liuzijun
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-26
- * @Update
+ * @Update 2022-03-31
  **/
+@Getter
+@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +26,24 @@ public class CategoryResult {
     private UserBean userBean;
 
     private List<NoteBean> noteBeanList;
+
+    private Boolean isSuccess;
+
+    private String status;
+
+    public CategoryResult(CategoryBean categoryBean, UserBean userBean, List<NoteBean> noteBeanList)
+    {
+        this.categoryBean = categoryBean;
+        this.userBean = userBean;
+        this.noteBeanList = noteBeanList;
+        this.isSuccess = true;
+        this.status = "Successful";
+    }
+
+    public CategoryResult(Boolean isSuccess, String status)
+    {
+        this.isSuccess = isSuccess;
+        this.status = status;
+    }
+
 }

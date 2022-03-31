@@ -1,5 +1,6 @@
 package com.werun.onlinenote_backend.config;
 
+import com.werun.onlinenote_backend.util.ConstUtil;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -15,40 +16,43 @@ import java.util.Map;
  * @ClassName ShiroConfig
  * @Description ShiroConfig
  * @Author honghaitao
- * @Updater
+ * @Updater liuzijun
  * @Create 2022-03-26
- * @Update
+ * @Update 2022-03-31
  **/
 @Configuration
 public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager defaultWebSecurityManager){
-        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         //设置安全管理器
-        bean.setSecurityManager(defaultWebSecurityManager);
+        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         //添加Shiro的内置过滤器
             /*
                 anon: 无需认证
                 authc: 必须认证
             */
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/login","anon"); //对登录界面不拦截
-        filterMap.put("/register","anon"); //对注册界面不拦截
-        filterMap.put("/**","authc"); //拦截其他页面
+        filterMap.put(ConstUtil.LOGIN, "anon"); //对登录界面不拦截
+        filterMap.put(ConstUtil.REGISTER, "anon"); //对注册界面不拦截
+        filterMap.put(ConstUtil.OTHERS, "authc"); //拦截其他页面
 
-        bean.setFilterChainDefinitionMap(filterMap);
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
-        bean.setLoginUrl("/login"); //拦截后跳转到登录页面
+        shiroFilterFactoryBean.setLoginUrl(ConstUtil.LOGIN); //拦截后跳转到登录页面
 
-        return bean;
+        return shiroFilterFactoryBean;
     }
 
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-    //关联UserRealm
-        securityManager.setRealm(userRealm);
-        return securityManager;
+
+        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+
+        //关联UserRealm
+        defaultWebSecurityManager.setRealm(userRealm);
+        return defaultWebSecurityManager;
     }
 
     //创建realm对象
@@ -56,4 +60,5 @@ public class ShiroConfig {
     public UserRealm userRealm(){
         return new UserRealm();
     }
+
 }

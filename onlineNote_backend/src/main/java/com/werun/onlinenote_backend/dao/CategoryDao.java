@@ -13,5 +13,6 @@ import java.util.List;
  * @Create 2022-03-24
  * @Update 2022-03-31
  **/
-public interface CategoryDao extends JpaRepository<Category, String>{
+public interface CategoryDao extends JpaRepository<Category, String> {
+    Category findCategoryByCategoryNameAndUser(String categoryName, User user);
 }
