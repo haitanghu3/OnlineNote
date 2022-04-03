@@ -41,4 +41,10 @@ public class IndexController {
         return indexService.register(userName,userAccount,userPassword);
     }
 
+    @ResponseBody
+    @PostMapping(ConstUtil.LOGOUT)
+    public String logout(){
+        return indexService.logout();
+    }
+
 }

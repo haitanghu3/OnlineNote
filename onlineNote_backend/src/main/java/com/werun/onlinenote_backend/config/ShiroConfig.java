@@ -33,15 +33,12 @@ public class ShiroConfig {
                 anon: 无需认证
                 authc: 必须认证
             */
-        Map<String, String> filterMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put(ConstUtil.LOGIN, "anon"); //对登录界面不拦截
         filterMap.put(ConstUtil.REGISTER, "anon"); //对注册界面不拦截
         filterMap.put(ConstUtil.OTHERS, "authc"); //拦截其他页面
-
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
-
         shiroFilterFactoryBean.setLoginUrl(ConstUtil.LOGIN); //拦截后跳转到登录页面
-
         return shiroFilterFactoryBean;
     }
 

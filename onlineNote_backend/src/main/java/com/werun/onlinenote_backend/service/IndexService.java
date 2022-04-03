@@ -70,4 +70,13 @@ public class IndexService {
         return "register failed";
 
     }
+
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isAuthenticated()) {
+            subject.logout();
+        }
+
+        return "logout";
+    }
 }
