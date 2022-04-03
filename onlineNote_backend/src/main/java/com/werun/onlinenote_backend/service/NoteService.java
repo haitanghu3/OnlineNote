@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @ClassName NoteService
@@ -30,7 +31,7 @@ public class NoteService {
     private final NoteDao noteDao;
     private final CategoryDao categoryDao;
 
-    public NoteResult addNote(String noteTitle, String cid, Boolean noteCompletedState, Timestamp noteCreateTime, String noteContent) {
+    public NoteResult addNote(String noteTitle, String cid, String noteContent) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
         Category category = categoryDao.findCategoryByCidAndUser(cid, user);
@@ -43,9 +44,8 @@ public class NoteService {
 
         note.setNoteTitle(noteTitle);
         note.setNoteCategory(category);
-        note.setNoteCompletedState(noteCompletedState);
-        note.setNoteCreateTime(noteCreateTime);
         note.setNoteContent(noteContent);
+        note.setNoteCreateTime(new Timestamp(new Date().getTime()));
         note.setUid(user.getUid());
 
         noteDao.save(note);

@@ -30,7 +30,8 @@ public class IndexController {
     public String login(@RequestParam("userAccount") String userAccount,
                         @RequestParam("userPassword") String userPassword,
                         Model model){
-        return indexService.login(userAccount, userPassword,model);
+        String message = indexService.login(userAccount, userPassword,model);
+        return message;
     }
 
     @ResponseBody
@@ -38,13 +39,15 @@ public class IndexController {
     public String register(@RequestParam("userName") String userName,
                            @RequestParam("userAccount") String userAccount,
                         @RequestParam("userPassword") String userPassword){
-        return indexService.register(userName,userAccount,userPassword);
+        String message = indexService.register(userName,userAccount,userPassword);
+        return message;
     }
 
     @ResponseBody
     @PostMapping(ConstUtil.LOGOUT)
     public String logout(){
-        return indexService.logout();
+        String message = indexService.logout();
+        return message;
     }
 
 }

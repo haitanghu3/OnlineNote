@@ -31,10 +31,8 @@ public class NoteController {
     @PostMapping(ConstUtil.ADD_NOTE)
     public NoteResult addNote(@RequestParam("noteTitle") String noteTitle,
                                         @RequestParam("cid") String cid,
-                                        @RequestParam("noteCompletedState") Boolean noteCompletedState,
-                                        @RequestParam("noteCreateTime") Timestamp noteCreateTime,
                                         @RequestParam("noteContent") String noteContent) {
-        return noteService.addNote(noteTitle, cid, noteCompletedState, noteCreateTime, noteContent);
+        return noteService.addNote(noteTitle, cid, noteContent);
     }
 
     @ResponseBody
