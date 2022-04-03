@@ -27,23 +27,23 @@ public class CategoryResult {
 
     private List<NoteBean> noteBeanList;
 
-    private Boolean isSuccess;
+    private Boolean success;
 
-    private String status;
+    private String msg;
 
     public CategoryResult(CategoryBean categoryBean, UserBean userBean, List<NoteBean> noteBeanList)
     {
         this.categoryBean = categoryBean;
         this.userBean = userBean;
         this.noteBeanList = noteBeanList;
-        this.isSuccess = true;
-        this.status = "Successful";
+        this.success = true;
+        this.msg = "success";
     }
 
-    public CategoryResult(Boolean isSuccess, String status)
+    public CategoryResult(Boolean success, String msg)
     {
-        this.isSuccess = isSuccess;
-        this.status = status;
+        this.success = success;
+        this.msg = msg;
     }
 
 }

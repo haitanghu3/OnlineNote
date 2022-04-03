@@ -26,6 +26,9 @@ public class ConstUtil {
     public static final String ADD_NOTE = "/note/addNote";
     public static final String DELETE_NOTE = "/note/deleteNote";
     public static final String GET_NOTE = "/note/getNote";
+    public static final String CHANGE_NOTE_TITLE = "/note/changeNoteTitle";
+    public static final String CHANGE_NOTE_CATEGORY = "/note/changeNoteCategory";
+    public static final String CHANGE_NOTE_COMPLETED_STATE = "/note/changeNoteCompletedState";
     public static final String CHANGE_NOTE_CONTENT = "/note/changeNoteContent";
 
     //================================================================================

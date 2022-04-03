@@ -14,5 +14,6 @@ import java.util.List;
  * @Update 2022-03-31
  **/
 public interface CategoryDao extends JpaRepository<Category, String> {
+    Category findCategoryByCidAndUser(String cid, User user);
     Category findCategoryByCategoryNameAndUser(String categoryName, User user);
 }

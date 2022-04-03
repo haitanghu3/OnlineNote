@@ -18,7 +18,7 @@ import java.util.List;
  * @Description 实体User的service层
  * @Author liuzijun
  * @Updater
- * @Create 2022-03-31
+ * @Create 2022-04-03
  * @Update
  **/
 @Service
@@ -27,7 +27,7 @@ public class UserService {
 
     private final UserDao userDao;
 
-    public UserResult deleteUserByUserName(String userName) {
+    public UserResult deleteUser() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
         if(user == null) {
@@ -38,8 +38,7 @@ public class UserService {
         return new UserResult(true, "Delete Successfully");
     }
 
-
-    public UserResult changeUserNameByUserName(String userName, String changeUserName) {
+    public UserResult changeUserName(String changeUserName) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
         if(user == null) {

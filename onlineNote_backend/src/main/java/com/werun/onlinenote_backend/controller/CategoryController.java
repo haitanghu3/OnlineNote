@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName CategoryController
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author honghaitao
  * @Updater liuzijun
  * @Create 2022-03-31
- * @Update 2022-03-31
+ * @Update 2022-04-03
  **/
 @Controller
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -27,26 +25,26 @@ public class CategoryController {
 
     @ResponseBody
     @PostMapping(ConstUtil.ADD_CATEGORY)
-    public CategoryResult addCategoryByCategoryName(@RequestParam("categoryName") String categoryName){
-        return categoryService.addCategoryByCategoryName(categoryName);
+    public CategoryResult addCategory(@RequestParam("categoryName") String categoryName){
+        return categoryService.addCategory(categoryName);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.DELETE_CATEGORY)
-    public CategoryResult deleteCategoryByCategoryName(@RequestParam("categoryName") String categoryName){
-        return categoryService.deleteCategoryByCategoryName(categoryName);
+    @DeleteMapping(ConstUtil.DELETE_CATEGORY)
+    public CategoryResult deleteCategory(@RequestParam("cid") String cid){
+        return categoryService.deleteCategory(cid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.GET_CATEGORY)
-    public CategoryResult getCategoryByCategoryName(@RequestParam("categoryName") String categoryName){
-        return categoryService.getCategoryByCategoryName(categoryName);
+    @GetMapping(ConstUtil.GET_CATEGORY)
+    public CategoryResult getCategory(@RequestParam("cid") String cid){
+        return categoryService.getCategory(cid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_CATEGORY_NAME)
-    public CategoryResult changeCategoryNameByCategoryName(@RequestParam("categoryName") String categoryName,
+    @PutMapping(ConstUtil.CHANGE_CATEGORY_NAME)
+    public CategoryResult changeCategoryName(@RequestParam("cid") String cid,
                                              @RequestParam("changeCategoryName") String changeCategoryName){
-        return categoryService.changeCategoryNameByCategoryName(categoryName, changeCategoryName);
+        return categoryService.changeCategoryName(cid, changeCategoryName);
     }
 }

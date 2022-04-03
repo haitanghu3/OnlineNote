@@ -25,21 +25,21 @@ public class NoteResult {
 
     private CategoryBean categoryBean;
 
-    private Boolean isSuccess;
+    private Boolean success;
 
-    private String status;
+    private String msg;
 
     public NoteResult(NoteBean noteBean, CategoryBean categoryBean)
     {
         this.noteBean = noteBean;
         this.categoryBean = categoryBean;
-        this.isSuccess = true;
-        this.status = "Successful";
+        this.success = true;
+        this.msg = "success";
     }
 
-    public NoteResult(Boolean isSuccess, String status)
+    public NoteResult(Boolean success, String msg)
     {
-        this.isSuccess = isSuccess;
-        this.status = status;
+        this.success = success;
+        this.msg = msg;
     }
 }
