@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author liuzijun
  * @Updater liuzijun
  * @Create 2022-03-31
- * @Update 2022-03-31
+ * @Update 2022-04-03
  **/
 @Controller
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -26,15 +26,14 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(ConstUtil.DELETE_USER)
-    public UserResult deleteUserByUserName(@RequestParam("userName") String userName){
-        return userService.deleteUserByUserName(userName);
+    public UserResult deleteUserByUserName(){
+        return userService.deleteUser();
     }
 
     @ResponseBody
     @PostMapping(ConstUtil.CHANGE_USER_NAME)
-    public UserResult changeUserNameByUserName(@RequestParam("userName") String userName,
-                                               @RequestParam("changeUserName") String changeUserName){
-        return userService.changeUserNameByUserName(userName, changeUserName);
+    public UserResult changeUserNameByUserName(@RequestParam("changeUserName") String changeUserName){
+        return userService.changeUserName(changeUserName);
     }
 
 }

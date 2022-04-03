@@ -25,21 +25,21 @@ public class UserResult {
 
     private List<CategoryBean> categoryBeanList;
 
-    private Boolean isSuccess;
+    private Boolean success;
 
-    private String status;
+    private String msg;
 
     public UserResult(UserBean userBean, List<CategoryBean> categoryBeanList)
     {
         this.userBean = userBean;
         this.categoryBeanList = categoryBeanList;
-        this.isSuccess = true;
-        this.status = "Successful";
+        this.success = true;
+        this.msg = "success";
     }
 
-    public UserResult(Boolean isSuccess, String status)
+    public UserResult(Boolean success, String msg)
     {
-        this.isSuccess = isSuccess;
-        this.status = status;
+        this.success = success;
+        this.msg = msg;
     }
 }

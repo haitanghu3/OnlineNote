@@ -29,6 +29,8 @@ public class NoteBean {
 
     private String noteContent;
 
+    private String uid;
+
     public NoteBean(Note note)
     {
         this.nid = note.getNid();
@@ -36,5 +38,6 @@ public class NoteBean {
         this.noteCreateTime = note.getNoteCreateTime();
         this.noteCompletedState = note.getNoteCompletedState();
         this.noteContent = note.getNoteContent();
+        this.uid = note.getUid();
     }
 }

@@ -66,4 +66,5 @@ public class Note {
      */
     @Column
     private String uid;
+
 }

@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.Query;
  * @Update
  **/
 public interface NoteDao extends JpaRepository<Note, String> {
-    Note findNoteByNoteTitleAndNoteCategory(String noteTitle, Category category);
+    Note findNoteByNidAndUid(String nid, String uid);
 }

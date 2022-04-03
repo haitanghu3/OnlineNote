@@ -21,7 +21,7 @@ import java.util.List;
  * @Author honghaitao
  * @Updater liuzijun
  * @Create 2022-03-31
- * @Update 2022-03-31
+ * @Update 2022-04-03
  **/
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -29,7 +29,7 @@ public class CategoryService {
 
     private final CategoryDao categoryDao;
 
-    public CategoryResult addCategoryByCategoryName(String categoryName) {
+    public CategoryResult addCategory(String categoryName) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
         Category category = categoryDao.findCategoryByCategoryNameAndUser(categoryName, user);
@@ -48,10 +48,10 @@ public class CategoryService {
         return new CategoryResult(new CategoryBean(category), new UserBean(user), noteBeanList);
     }
 
-    public CategoryResult deleteCategoryByCategoryName(String categoryName) {
+    public CategoryResult deleteCategory(String cid) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
-        Category category = categoryDao.findCategoryByCategoryNameAndUser(categoryName, user);
+        Category category = categoryDao.findCategoryByCidAndUser(cid, user);
 
         if(category == null) {
             return new CategoryResult(false, "This didn't exist");
@@ -62,10 +62,10 @@ public class CategoryService {
         return new CategoryResult(true, "Delete Successfully");
     }
 
-    public CategoryResult getCategoryByCategoryName(String categoryName) {
+    public CategoryResult getCategory(String cid) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
-        Category category = categoryDao.findCategoryByCategoryNameAndUser(categoryName, user);
+        Category category = categoryDao.findCategoryByCidAndUser(cid, user);
 
         if(category == null) {
             return new CategoryResult(false, "This didn't exist");
@@ -78,9 +78,9 @@ public class CategoryService {
         return new CategoryResult(new CategoryBean(category), new UserBean(user), noteBeanList);
     }
 
-    public CategoryResult changeCategoryNameByCategoryName(String categoryName, String changeCategoryName) {
+    public CategoryResult changeCategoryName(String cid, String changeCategoryName) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        Category category = categoryDao.findCategoryByCategoryNameAndUser(categoryName, user);
+        Category category = categoryDao.findCategoryByCidAndUser(cid, user);
 
         if(category == null) {
             return new CategoryResult(false, "This existed");

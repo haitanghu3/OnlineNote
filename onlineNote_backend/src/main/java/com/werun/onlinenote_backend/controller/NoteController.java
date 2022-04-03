@@ -29,31 +29,52 @@ public class NoteController {
 
     @ResponseBody
     @PostMapping(ConstUtil.ADD_NOTE)
-    public NoteResult addNoteByNoteName(@RequestParam("noteTitle") String noteTitle,
-                                        @RequestParam("noteCategory") Category noteCategory,
+    public NoteResult addNote(@RequestParam("noteTitle") String noteTitle,
+                                        @RequestParam("cid") String cid,
                                         @RequestParam("noteCompletedState") Boolean noteCompletedState,
                                         @RequestParam("noteCreateTime") Timestamp noteCreateTime,
                                         @RequestParam("noteContent") String noteContent) {
-        return noteService.addNoteByNoteTitle(noteTitle, noteCategory, noteCompletedState, noteCreateTime, noteContent);
+        return noteService.addNote(noteTitle, cid, noteCompletedState, noteCreateTime, noteContent);
     }
 
-//    @ResponseBody
-//    @PostMapping(ConstUtil.DELETE_NOTE)
-//    public NoteResult deleteNoteByNoteName(@RequestParam("noteTitle") String noteTitle) {
-//        return noteService.deleteNoteByNoteName(noteTitle);
-//    }
-//
-//    @ResponseBody
-//    @PostMapping(ConstUtil.GET_NOTE)
-//    public NoteResult getNoteByNoteName(@RequestParam("noteTitle") String noteTitle) {
-//        return noteService.getNoteByNoteName(noteTitle);
-//    }
-//
-//    @ResponseBody
-//    @PostMapping(ConstUtil.CHANGE_NOTE_CONTENT)
-//    public NoteResult changeNoteContentByNoteName(@RequestParam("noteTitle") String noteTitle,
-//                                               @RequestParam("changeNoteContent") String changeNoteContent) {
-//        return noteService.changeNoteContentByNoteName(noteTitle, changeNoteContent);
-//    }
+    @ResponseBody
+    @PostMapping(ConstUtil.DELETE_NOTE)
+    public NoteResult deleteNote(@RequestParam("nid") String nid) {
+        return noteService.deleteNote(nid);
+    }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.GET_NOTE)
+    public NoteResult getNote(@RequestParam("nid") String nid) {
+        return noteService.getNote(nid);
+    }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.CHANGE_NOTE_TITLE)
+    public NoteResult changeNoteTitle(@RequestParam("nid") String nid,
+                                        @RequestParam("changeNoteTitle") String changeNoteTitle) {
+        return noteService.changeNoteTitle(nid, changeNoteTitle);
+    }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.CHANGE_NOTE_CATEGORY)
+    public NoteResult changeNoteCategory(@RequestParam("nid") String nid,
+                                        @RequestParam("cid") String cid) {
+        return noteService.changeNoteCategory(nid, cid);
+    }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.CHANGE_NOTE_COMPLETED_STATE)
+    public NoteResult changeNoteCompletedState(@RequestParam("nid") String nid,
+                                        @RequestParam("changeNoteCompletedState") Boolean changeNoteCompletedState) {
+        return noteService.changeNoteCompletedState(nid, changeNoteCompletedState);
+    }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.CHANGE_NOTE_CONTENT)
+    public NoteResult changeNoteContent(@RequestParam("nid") String nid,
+                                               @RequestParam("changeNoteContent") String changeNoteContent) {
+        return noteService.changeNoteContent(nid, changeNoteContent);
+    }
 
 }
