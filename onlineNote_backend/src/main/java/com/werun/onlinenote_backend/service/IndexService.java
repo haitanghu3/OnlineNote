@@ -30,11 +30,15 @@ public class IndexService {
 
     private final UserDao userDao;
 
-    public String login(String account, String password, Model model){
+    public String login(String userAccount, String userPassword, Model model){
         //获取当前用户
         Subject subject = SecurityUtils.getSubject();
+
+        ByteSource salt = ByteSource.Util.bytes(userAccount);
+        String newPassword = new SimpleHash("MD5", userPassword, salt,1024).toHex();
         //封装当前用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(account,password);
+        UsernamePasswordToken token = new UsernamePasswordToken(userAccount, newPassword);
+
         try{
             subject.login(token);//执行登录方法
         }catch (UnknownAccountException e){//用户名不存在
@@ -50,12 +54,12 @@ public class IndexService {
 
     public String register(String userName, String userAccount,String userPassword){
         ByteSource salt = ByteSource.Util.bytes(userAccount);
-        String newPs = new SimpleHash("MD5",userPassword,salt,1024).toHex();
+        String newPassword = new SimpleHash("MD5", userPassword, salt,1024).toHex();
 
         User user = new User();
         user.setUserName(userName);
         user.setUserAccount(userAccount);
-        user.setUserPassword(userPassword);
+        user.setUserPassword(newPassword);
 
         //看数据库中是否存在该用户
         User userInfo = userDao.findByUserAccount(userAccount);

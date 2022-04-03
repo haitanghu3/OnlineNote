@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName CategoryController
@@ -32,19 +30,19 @@ public class CategoryController {
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.DELETE_CATEGORY)
+    @DeleteMapping(ConstUtil.DELETE_CATEGORY)
     public CategoryResult deleteCategory(@RequestParam("cid") String cid){
         return categoryService.deleteCategory(cid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.GET_CATEGORY)
+    @GetMapping(ConstUtil.GET_CATEGORY)
     public CategoryResult getCategory(@RequestParam("cid") String cid){
         return categoryService.getCategory(cid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_CATEGORY_NAME)
+    @PutMapping(ConstUtil.CHANGE_CATEGORY_NAME)
     public CategoryResult changeCategoryName(@RequestParam("cid") String cid,
                                              @RequestParam("changeCategoryName") String changeCategoryName){
         return categoryService.changeCategoryName(cid, changeCategoryName);

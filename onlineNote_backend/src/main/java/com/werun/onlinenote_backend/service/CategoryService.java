@@ -38,12 +38,16 @@ public class CategoryService {
             return new CategoryResult(false, "This existed");
         }
 
+        category = new Category();
+
         category.setCategoryName(categoryName);
         category.setUser(user);
         categoryDao.save(category);
         List<NoteBean> noteBeanList = null;
-        for(Note note : category.getNotes()) {
-            noteBeanList.add(new NoteBean(note));
+        if(category.getNotes() != null) {
+            for(Note note : category.getNotes()) {
+                noteBeanList.add(new NoteBean(note));
+            }
         }
         return new CategoryResult(new CategoryBean(category), new UserBean(user), noteBeanList);
     }
