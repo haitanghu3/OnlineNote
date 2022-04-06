@@ -11,6 +11,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +39,21 @@ public class UserService {
         return new UserResult(true, "Delete Successfully");
     }
 
+    public UserResult getUser() {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+
+        if(user == null) {
+            return new UserResult(false, "This didn't exist");
+        }
+        List<CategoryBean> categoryBeanList = new ArrayList<>();
+        if(user.getCategories() != null) {
+            for(Category category : user.getCategories()) {
+                categoryBeanList.add(new CategoryBean(category));
+            }
+        }
+        return new UserResult(new UserBean(user), categoryBeanList);
+    }
+
     public UserResult changeUserName(String changeUserName) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
@@ -47,9 +63,11 @@ public class UserService {
 
         user.setUserName(changeUserName);
         userDao.save(user);
-        List<CategoryBean> categoryBeanList = null;
-        for(Category note : user.getCategories()) {
-            categoryBeanList.add(new CategoryBean(note));
+        List<CategoryBean> categoryBeanList = new ArrayList<>();
+        if(user.getCategories() != null) {
+            for(Category category : user.getCategories()) {
+                categoryBeanList.add(new CategoryBean(category));
+            }
         }
         return new UserResult(new UserBean(user), categoryBeanList);
     }

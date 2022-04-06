@@ -7,9 +7,7 @@ import com.werun.onlinenote_backend.util.ConstUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 
@@ -36,40 +34,40 @@ public class NoteController {
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.DELETE_NOTE)
+    @DeleteMapping(ConstUtil.DELETE_NOTE)
     public NoteResult deleteNote(@RequestParam("nid") String nid) {
         return noteService.deleteNote(nid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.GET_NOTE)
+    @GetMapping(ConstUtil.GET_NOTE)
     public NoteResult getNote(@RequestParam("nid") String nid) {
         return noteService.getNote(nid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_NOTE_TITLE)
+    @PutMapping(ConstUtil.CHANGE_NOTE_TITLE)
     public NoteResult changeNoteTitle(@RequestParam("nid") String nid,
                                         @RequestParam("changeNoteTitle") String changeNoteTitle) {
         return noteService.changeNoteTitle(nid, changeNoteTitle);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_NOTE_CATEGORY)
+    @PutMapping(ConstUtil.CHANGE_NOTE_CATEGORY)
     public NoteResult changeNoteCategory(@RequestParam("nid") String nid,
                                         @RequestParam("cid") String cid) {
         return noteService.changeNoteCategory(nid, cid);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_NOTE_COMPLETED_STATE)
+    @PutMapping(ConstUtil.CHANGE_NOTE_COMPLETED_STATE)
     public NoteResult changeNoteCompletedState(@RequestParam("nid") String nid,
                                         @RequestParam("changeNoteCompletedState") Boolean changeNoteCompletedState) {
         return noteService.changeNoteCompletedState(nid, changeNoteCompletedState);
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_NOTE_CONTENT)
+    @PutMapping(ConstUtil.CHANGE_NOTE_CONTENT)
     public NoteResult changeNoteContent(@RequestParam("nid") String nid,
                                                @RequestParam("changeNoteContent") String changeNoteContent) {
         return noteService.changeNoteContent(nid, changeNoteContent);

@@ -3,6 +3,7 @@ package com.werun.onlinenote_backend.service;
 import com.werun.onlinenote_backend.bean.NoteBean;
 import com.werun.onlinenote_backend.bean.UserBean;
 import com.werun.onlinenote_backend.dao.CategoryDao;
+import com.werun.onlinenote_backend.dao.NoteDao;
 import com.werun.onlinenote_backend.entity.Category;
 import com.werun.onlinenote_backend.entity.Note;
 import com.werun.onlinenote_backend.entity.User;
@@ -13,6 +14,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryDao categoryDao;
+    private final NoteDao noteDao;
 
     public CategoryResult addCategory(String categoryName) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -43,7 +46,7 @@ public class CategoryService {
         category.setCategoryName(categoryName);
         category.setUser(user);
         categoryDao.save(category);
-        List<NoteBean> noteBeanList = null;
+        List<NoteBean> noteBeanList = new ArrayList<>();
         if(category.getNotes() != null) {
             for(Note note : category.getNotes()) {
                 noteBeanList.add(new NoteBean(note));
@@ -59,9 +62,14 @@ public class CategoryService {
 
         if(category == null) {
             return new CategoryResult(false, "This didn't exist");
-
         }
-
+        List<Note> noteList = category.getNotes();
+        if(noteList != null) {
+            for(Note note : noteList) {
+                noteDao.delete(note);
+            }
+        }
+        category = categoryDao.findCategoryByCidAndUser(cid, user);
         categoryDao.delete(category);
         return new CategoryResult(true, "Delete Successfully");
     }
@@ -75,9 +83,12 @@ public class CategoryService {
             return new CategoryResult(false, "This didn't exist");
         }
 
-        List<NoteBean> noteBeanList = null;
-        for(Note note : category.getNotes()) {
-            noteBeanList.add(new NoteBean(note));
+        List<NoteBean> noteBeanList = new ArrayList<>();
+        System.out.println(category.getNotes());
+        if(category.getNotes() != null) {
+            for(Note note : category.getNotes()) {
+                noteBeanList.add(new NoteBean(note));
+            }
         }
         return new CategoryResult(new CategoryBean(category), new UserBean(user), noteBeanList);
     }
@@ -92,9 +103,11 @@ public class CategoryService {
 
         category.setCategoryName(changeCategoryName);
         categoryDao.save(category);
-        List<NoteBean> noteBeanList = null;
-        for(Note note : category.getNotes()) {
-            noteBeanList.add(new NoteBean(note));
+        List<NoteBean> noteBeanList = new ArrayList<>();
+        if(category.getNotes() != null) {
+            for(Note note : category.getNotes()) {
+                noteBeanList.add(new NoteBean(note));
+            }
         }
         return new CategoryResult(new CategoryBean(category), new UserBean(user), noteBeanList);
     }
