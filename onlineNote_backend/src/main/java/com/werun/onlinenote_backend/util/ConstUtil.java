@@ -34,9 +34,8 @@ public class ConstUtil {
 
     //================================================================================
     //User 相关
-    public static final String ADD_USER = "/user/addUser";
     public static final String DELETE_USER = "/user/deleteUser";
     public static final String GET_USER = "/user/getUser";
-    public static final String CHANGE_USER_NAME = "/user/changeUser";
+    public static final String CHANGE_USER_NAME = "/user/changeUserName";
 
 }

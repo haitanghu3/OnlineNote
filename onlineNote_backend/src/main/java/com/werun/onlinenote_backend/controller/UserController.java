@@ -6,9 +6,7 @@ import com.werun.onlinenote_backend.util.ConstUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName UserController
@@ -25,14 +23,20 @@ public class UserController {
     private final UserService userService;
 
     @ResponseBody
-    @PostMapping(ConstUtil.DELETE_USER)
-    public UserResult deleteUserByUserName(){
+    @DeleteMapping(ConstUtil.DELETE_USER)
+    public UserResult deleteUser() {
         return userService.deleteUser();
     }
 
     @ResponseBody
-    @PostMapping(ConstUtil.CHANGE_USER_NAME)
-    public UserResult changeUserNameByUserName(@RequestParam("changeUserName") String changeUserName){
+    @GetMapping(ConstUtil.GET_USER)
+    public UserResult getUser() {
+        return userService.getUser();
+    }
+
+    @ResponseBody
+    @PutMapping(ConstUtil.CHANGE_USER_NAME)
+    public UserResult changeUserName(@RequestParam("changeUserName") String changeUserName) {
         return userService.changeUserName(changeUserName);
     }
 

@@ -38,7 +38,7 @@ public class Category {
     /**
      * 分类与笔记的一对多映射
      */
-    @OneToMany(mappedBy = "noteCategory",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "noteCategory", fetch = FetchType.EAGER)
     private List<Note> notes;
 
     /**
