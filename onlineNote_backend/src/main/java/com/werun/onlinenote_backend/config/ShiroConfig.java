@@ -1,9 +1,11 @@
 package com.werun.onlinenote_backend.config;
 
+import com.werun.onlinenote_backend.manager.CustomSessionManager;
 import com.werun.onlinenote_backend.util.ConstUtil;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,5 +59,12 @@ public class ShiroConfig {
     public UserRealm userRealm(){
         return new UserRealm();
     }
+    @Bean
+    public DefaultWebSessionManager sessionManager()
+    {
+        CustomSessionManager customSessionManager = new CustomSessionManager();
+        return  customSessionManager;
+    }
+
 
 }

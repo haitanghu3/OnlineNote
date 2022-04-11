@@ -1,5 +1,6 @@
 package com.werun.onlinenote_backend.controller;
 
+import com.werun.onlinenote_backend.result.IndexResult;
 import com.werun.onlinenote_backend.service.IndexService;
 import com.werun.onlinenote_backend.util.ConstUtil;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName IndexController
@@ -27,27 +30,27 @@ public class IndexController {
 
     @ResponseBody
     @PostMapping(ConstUtil.LOGIN)
-    public String login(@RequestParam("userAccount") String userAccount,
-                        @RequestParam("userPassword") String userPassword,
-                        Model model){
-        String message = indexService.login(userAccount, userPassword,model);
-        return message;
+    public IndexResult login(@RequestParam("userAccount") String userAccount,
+                             @RequestParam("userPassword") String userPassword,
+                             HttpServletRequest req){
+
+        return indexService.login(userAccount, userPassword,req);
     }
 
     @ResponseBody
     @PostMapping(ConstUtil.REGISTER)
-    public String register(@RequestParam("userName") String userName,
+    public IndexResult register(@RequestParam("userName") String userName,
                            @RequestParam("userAccount") String userAccount,
                         @RequestParam("userPassword") String userPassword){
-        String message = indexService.register(userName,userAccount,userPassword);
-        return message;
+
+        return indexService.register(userName,userAccount,userPassword);
     }
 
     @ResponseBody
     @PostMapping(ConstUtil.LOGOUT)
-    public String logout(){
-        String message = indexService.logout();
-        return message;
+    public IndexResult logout(){
+
+        return indexService.logout();
     }
 
 }

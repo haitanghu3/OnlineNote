@@ -2,6 +2,8 @@ package com.werun.onlinenote_backend.service;
 
 import com.werun.onlinenote_backend.dao.UserDao;
 import com.werun.onlinenote_backend.entity.User;
+import com.werun.onlinenote_backend.result.IndexResult;
+import com.werun.onlinenote_backend.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -14,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
+
 
 /**
  * @ClassName IndexService
@@ -30,29 +34,52 @@ public class IndexService {
 
     private final UserDao userDao;
 
-    public String login(String userAccount, String userPassword, Model model){
+    /*public IndexResult login(String userAccount, String userPassword, Model model) {
         //获取当前用户
         Subject subject = SecurityUtils.getSubject();
 
         ByteSource salt = ByteSource.Util.bytes(userAccount);
-        String newPassword = new SimpleHash("MD5", userPassword, salt,1024).toHex();
+        String newPassword = new SimpleHash("MD5", userPassword, salt, 1024).toHex();
         //封装当前用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(userAccount, newPassword);
+        UsernamePasswordToken userToken = new UsernamePasswordToken(userAccount, newPassword);
 
-        try{
-            subject.login(token);//执行登录方法
-        }catch (UnknownAccountException e){//用户名不存在
-            model.addAttribute("msg","用户名错误");
-            return "login failed.";
-        }catch (IncorrectCredentialsException e){//密码不存在
-            model.addAttribute("msg","密码错误");
-            return "login failed.";
+
+        try {
+            subject.login(userToken);//执行登录方法
+
+            User user = (User) subject.getPrincipal();
+
+        } catch (UnknownAccountException e) {//用户名不存在
+            model.addAttribute("msg", "用户名错误");
+            return new IndexResult("用户不存在", false);
+        } catch (IncorrectCredentialsException e) {//密码不存在
+            model.addAttribute("msg", "密码错误");
+            return new IndexResult("密码错误", false);
         }
         //以上貌似最好封装到util层?(我现在就先写在这里吧)
-        return "login";
+        return new IndexResult("登录成功", true, userToken);
+    }*/
+    public IndexResult login(String userAccount, String userPassword, HttpServletRequest req){
+        //尝试登录
+        ByteSource salt = ByteSource.Util.bytes(userAccount);
+        String newPassword = new SimpleHash("MD5", userPassword, salt, 1024).toHex();
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(new UsernamePasswordToken(userAccount, newPassword));
+        } catch (UnknownAccountException e) {//用户名不存在
+            return new IndexResult("用户不存在", false);
+        } catch (IncorrectCredentialsException e) {//密码不存在
+            return new IndexResult("密码错误", false);
+        }
+        User user = (User) subject.getPrincipal();
+        String id = user.getUid();
+        //生成jwtToken
+        String jwtToken = JwtUtils.createToken(id,user.getUserAccount(), subject.getSession().getId().toString());
+        //设置好token，后来会在全局处理的时候放入响应里
+        req.setAttribute("token", jwtToken);
+        return new IndexResult("登录成功", true,jwtToken);
     }
-
-    public String register(String userName, String userAccount,String userPassword){
+    public IndexResult register(String userName, String userAccount,String userPassword){
         ByteSource salt = ByteSource.Util.bytes(userAccount);
         String newPassword = new SimpleHash("MD5", userPassword, salt,1024).toHex();
 
@@ -65,18 +92,18 @@ public class IndexService {
         User userInfo = userDao.findByUserAccount(userAccount);
         if(userInfo == null){
             userDao.save(user);
-            return "register succeed";
+            return new IndexResult("注册成功",true);
         }
-        return "register failed";
+        return new IndexResult("该用户已注册",false);
 
     }
 
-    public String logout(){
+    public IndexResult logout(){
         Subject subject = SecurityUtils.getSubject();
         if(subject.isAuthenticated()) {
             subject.logout();
         }
 
-        return "logout";
+        return new IndexResult("登出成功",true);
     }
 }
