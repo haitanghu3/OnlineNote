@@ -8,6 +8,8 @@ import com.werun.onlinenote_backend.entity.User;
 import com.werun.onlinenote_backend.result.UserResult;
 import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,4 +73,26 @@ public class UserService {
         }
         return new UserResult(new UserBean(user), categoryBeanList);
     }
+
+    public UserResult changeUserPassword(String changeUserPassword) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+
+        if(user == null) {
+            return new UserResult(false, "This didn't exist");
+        }
+
+        String userAccount = user.getUserAccount();
+        ByteSource salt = ByteSource.Util.bytes(userAccount);
+        String newPassword = new SimpleHash("MD5", changeUserPassword, salt,1024).toHex();
+        user.setUserPassword(newPassword);
+        userDao.save(user);
+        List<CategoryBean> categoryBeanList = new ArrayList<>();
+        if(user.getCategories() != null) {
+            for(Category category : user.getCategories()) {
+                categoryBeanList.add(new CategoryBean(category));
+            }
+        }
+        return new UserResult(new UserBean(user), categoryBeanList);
+    }
+
 }

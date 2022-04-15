@@ -40,4 +40,10 @@ public class UserController {
         return userService.changeUserName(changeUserName);
     }
 
+    @ResponseBody
+    @PutMapping(ConstUtil.CHANGE_USER_PASSWORD)
+    public UserResult changeUserPassword(@RequestParam("changeUserPassword") String changeUserPassword) {
+        return userService.changeUserPassword(changeUserPassword);
+    }
+
 }

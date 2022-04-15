@@ -37,5 +37,6 @@ public class ConstUtil {
     public static final String DELETE_USER = "/user/deleteUser";
     public static final String GET_USER = "/user/getUser";
     public static final String CHANGE_USER_NAME = "/user/changeUserName";
+    public static final String CHANGE_USER_PASSWORD = "/user/changeUserPassword";
 
 }
