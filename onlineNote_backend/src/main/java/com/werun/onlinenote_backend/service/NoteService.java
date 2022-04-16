@@ -7,6 +7,8 @@ import com.werun.onlinenote_backend.dao.NoteDao;
 import com.werun.onlinenote_backend.entity.Category;
 import com.werun.onlinenote_backend.entity.Note;
 import com.werun.onlinenote_backend.entity.User;
+import com.werun.onlinenote_backend.result.AllNoteResult;
+import com.werun.onlinenote_backend.result.CategoryResult;
 import com.werun.onlinenote_backend.result.NoteResult;
 import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
@@ -14,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName NoteService
@@ -145,5 +149,17 @@ public class NoteService {
         Category category = note.getNoteCategory();
 
         return new NoteResult(new NoteBean(note), new CategoryBean(category));
+    }
+    public AllNoteResult getAllNote(){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        List<Note> notes = noteDao.findByUid(user.getUid());
+        if(notes == null) {
+            return new AllNoteResult(false, "This didn't exist");
+        }
+        List<NoteBean> noteBeanList = new ArrayList<>();
+        for(Note note : notes) {
+            noteBeanList.add(new NoteBean(note));
+        }
+        return new AllNoteResult(noteBeanList);
     }
 }

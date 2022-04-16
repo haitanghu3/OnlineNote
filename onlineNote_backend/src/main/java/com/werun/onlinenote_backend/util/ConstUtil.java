@@ -31,7 +31,7 @@ public class ConstUtil {
     public static final String CHANGE_NOTE_CATEGORY = "/note/changeNoteCategory";
     public static final String CHANGE_NOTE_COMPLETED_STATE = "/note/changeNoteCompletedState";
     public static final String CHANGE_NOTE_CONTENT = "/note/changeNoteContent";
-
+    public static final String GET_ALL_NOTE = "/note/getAllNote";
     //================================================================================
     //User 相关
     public static final String DELETE_USER = "/user/deleteUser";

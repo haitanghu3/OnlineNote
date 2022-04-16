@@ -1,6 +1,7 @@
 package com.werun.onlinenote_backend.controller;
 
 import com.werun.onlinenote_backend.entity.Category;
+import com.werun.onlinenote_backend.result.AllNoteResult;
 import com.werun.onlinenote_backend.result.NoteResult;
 import com.werun.onlinenote_backend.service.NoteService;
 import com.werun.onlinenote_backend.util.ConstUtil;
@@ -73,4 +74,9 @@ public class NoteController {
         return noteService.changeNoteContent(nid, changeNoteContent);
     }
 
+    @ResponseBody
+    @GetMapping(ConstUtil.GET_ALL_NOTE)
+    public AllNoteResult getAllNote(){
+        return noteService.getAllNote();
+    }
 }
