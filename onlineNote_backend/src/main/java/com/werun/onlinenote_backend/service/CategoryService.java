@@ -21,9 +21,9 @@ import java.util.List;
  * @ClassName CategoryService
  * @Description 实体Category的service层
  * @Author honghaitao
- * @Updater liuzijun
+ * @Updater liuzijun,honghaitao
  * @Create 2022-03-31
- * @Update 2022-04-03
+ * @Update 2022-04-17
  **/
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -63,7 +63,7 @@ public class CategoryService {
         if(category == null) {
             return new CategoryResult(false, "This didn't exist");
         }
-        List<Note> noteList = category.getNotes();
+        List<Note> noteList = noteDao.findByNoteCategory(category);
         if(noteList != null) {
             for(Note note : noteList) {
                 noteDao.delete(note);
@@ -84,9 +84,10 @@ public class CategoryService {
         }
 
         List<NoteBean> noteBeanList = new ArrayList<>();
-        System.out.println(category.getNotes());
-        if(category.getNotes() != null) {
-            for(Note note : category.getNotes()) {
+        List<Note> noteList = noteDao.findByNoteCategory(category);
+        System.out.println(noteList);
+        if(noteList != null) {
+            for(Note note : noteList) {
                 noteBeanList.add(new NoteBean(note));
             }
         }
@@ -104,8 +105,9 @@ public class CategoryService {
         category.setCategoryName(changeCategoryName);
         categoryDao.save(category);
         List<NoteBean> noteBeanList = new ArrayList<>();
-        if(category.getNotes() != null) {
-            for(Note note : category.getNotes()) {
+        List<Note> noteList = noteDao.findByNoteCategory(category);
+        if(noteList != null) {
+            for(Note note : noteList) {
                 noteBeanList.add(new NoteBean(note));
             }
         }

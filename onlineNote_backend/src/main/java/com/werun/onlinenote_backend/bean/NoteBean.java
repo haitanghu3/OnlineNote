@@ -31,6 +31,10 @@ public class NoteBean {
 
     private String uid;
 
+    private String cName;
+
+    private String description;
+
     public NoteBean(Note note)
     {
         this.nid = note.getNid();
@@ -39,5 +43,7 @@ public class NoteBean {
         this.noteCompletedState = note.getNoteCompletedState();
         this.noteContent = note.getNoteContent();
         this.uid = note.getUid();
+        this.cName = note.getNoteCategory().getCategoryName();
+        this.description = note.getDescription();
     }
 }

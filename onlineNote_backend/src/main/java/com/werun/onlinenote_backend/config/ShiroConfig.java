@@ -24,17 +24,17 @@ import java.util.Map;
  **/
 @Configuration
 public class ShiroConfig {
-    @Bean
+   @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager defaultWebSecurityManager){
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         //添加Shiro的内置过滤器
-            /*
-                anon: 无需认证
-                authc: 必须认证
-            */
+
+                //anon: 无需认证
+                //authc: 必须认证
+
         LinkedHashMap<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put(ConstUtil.LOGIN, "anon"); //对登录界面不拦截
         filterMap.put(ConstUtil.REGISTER, "anon"); //对注册界面不拦截

@@ -53,7 +53,7 @@ public class Note {
      * 状态(一开始默认为未完成的'false'状态)
      */
     @Column
-    private Boolean noteCompletedState = false;
+    private Boolean noteCompletedState;
 
     /**
      * 内容（仅文本）
@@ -67,4 +67,9 @@ public class Note {
     @Column
     private String uid;
 
+    /**
+     * 描述
+     */
+    @Column
+    private String description;
 }

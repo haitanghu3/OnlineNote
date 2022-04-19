@@ -2,6 +2,7 @@ package com.werun.onlinenote_backend.service;
 
 import com.werun.onlinenote_backend.bean.CategoryBean;
 import com.werun.onlinenote_backend.bean.UserBean;
+import com.werun.onlinenote_backend.dao.CategoryDao;
 import com.werun.onlinenote_backend.dao.UserDao;
 import com.werun.onlinenote_backend.entity.Category;
 import com.werun.onlinenote_backend.entity.User;
@@ -20,15 +21,16 @@ import java.util.List;
  * @ClassName UserService
  * @Description 实体User的service层
  * @Author liuzijun
- * @Updater
+ * @Updater honghaitao
  * @Create 2022-04-03
- * @Update
+ * @Update 2022-04-17
  **/
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
 
     private final UserDao userDao;
+    private final CategoryDao categoryDao;
 
     public UserResult deleteUser() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -48,8 +50,9 @@ public class UserService {
             return new UserResult(false, "This didn't exist");
         }
         List<CategoryBean> categoryBeanList = new ArrayList<>();
-        if(user.getCategories() != null) {
-            for(Category category : user.getCategories()) {
+        List<Category> categories = categoryDao.findByUser(user);
+        if(categories != null) {
+            for(Category category : categories) {
                 categoryBeanList.add(new CategoryBean(category));
             }
         }
@@ -66,8 +69,9 @@ public class UserService {
         user.setUserName(changeUserName);
         userDao.save(user);
         List<CategoryBean> categoryBeanList = new ArrayList<>();
-        if(user.getCategories() != null) {
-            for(Category category : user.getCategories()) {
+        List<Category> categories = categoryDao.findByUser(user);
+        if(categories != null) {
+            for(Category category : categories) {
                 categoryBeanList.add(new CategoryBean(category));
             }
         }
@@ -87,8 +91,9 @@ public class UserService {
         user.setUserPassword(newPassword);
         userDao.save(user);
         List<CategoryBean> categoryBeanList = new ArrayList<>();
-        if(user.getCategories() != null) {
-            for(Category category : user.getCategories()) {
+        List<Category> categories = categoryDao.findByUser(user);
+        if(categories != null) {
+            for(Category category : categories) {
                 categoryBeanList.add(new CategoryBean(category));
             }
         }
