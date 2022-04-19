@@ -9,7 +9,11 @@ import java.util.List;
 
 /**
  * @ClassName AllNoteResult
+<<<<<<< HEAD
  * @Description 要返回多个note结果时的封装
+=======
+ * @Description AllNote类结果封装
+>>>>>>> f8499b0a30217c1509860f75e7887153d8a647ed
  * @Author honghaitao
  * @Updater
  * @Create 2022-04-16

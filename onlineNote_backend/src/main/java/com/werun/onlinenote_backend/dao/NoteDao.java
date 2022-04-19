@@ -20,4 +20,5 @@ public interface NoteDao extends JpaRepository<Note, String> {
     List<Note> findByUid(String uid);
     List<Note> findByNoteCategory(Category category);
     List<Note> findByNoteTitleAndUid(String noteTitle,String Uid);
+
 }
