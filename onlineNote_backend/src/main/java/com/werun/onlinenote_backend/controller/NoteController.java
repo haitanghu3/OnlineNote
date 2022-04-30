@@ -88,4 +88,14 @@ public class NoteController {
     public AllNoteResult getNoteByNoteTitle(@RequestParam("noteTitle") String noteTitle){
         return noteService.getNoteByNoteTitle(noteTitle);
     }
+
+    @ResponseBody
+    @PostMapping(ConstUtil.CHANGE_NOTE_ALL)
+    public NoteResult changeNoteAll(@RequestParam("nid") String nid,
+                                    @RequestParam("changeNoteTitle") String changeNoteTitle,
+                                    @RequestParam("cid") String cid,
+                                    @RequestParam("changeNoteContent") String changeNoteContent){
+
+        return noteService.changeNoteAll(nid,changeNoteTitle,cid,changeNoteContent);
+    }
 }

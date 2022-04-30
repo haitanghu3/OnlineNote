@@ -109,7 +109,7 @@ public class NoteService {
 
         Category category = categoryDao.findCategoryByCidAndUser(cid, user);
 
-        if(note == null) {
+        if(note == null || category == null) {
             return new NoteResult(false, "This didn't exist");
         }
 
@@ -176,5 +176,22 @@ public class NoteService {
             noteBeanList.add(new NoteBean(note));
         }
         return new AllNoteResult(noteBeanList);
+    }
+
+    public NoteResult changeNoteAll (String nid, String changeNoteTitle, String cid,String changeNoteContent){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Note note = noteDao.findNoteByNidAndUid(nid, user.getUid());
+        if(note == null) {
+            return new NoteResult(false, "This didn't exist");
+        }
+        Category category = categoryDao.findCategoryByCidAndUser(cid, user);
+        if(category == null) {
+            return new NoteResult(false, "This didn't exist");
+        }
+        note.setNoteTitle(changeNoteTitle);
+        note.setNoteContent(changeNoteContent);
+        note.setNoteCategory(category);
+        noteDao.save(note);
+        return new NoteResult(new NoteBean(note), new CategoryBean(category));
     }
 }
